@@ -40,7 +40,6 @@ interface Row {
 export const getTableRowsFromPokemonData: (
   pokemon: UserNamedPokemon,
 ) => Row[] = pokemon => {
-  console.log(pokemon.stats);
   const rows: Row[] = [];
   rows.push({ label: 'Id', value: `${pokemon.id}` });
   rows.push({ label: 'Height', value: `${pokemon.height}` });
