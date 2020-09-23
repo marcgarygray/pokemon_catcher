@@ -7,11 +7,11 @@ import Home from '@material-ui/icons/Home';
 import { getRandomPokemon } from '../api/api';
 import { Consumer, Pokemon } from '../types';
 import routes from '../routes';
+import { getSelectedPokemon, getSelectedPokemonAbilities } from '../utils';
 import { usePokemon } from '../usePokemon';
 import PokemonList from './PokemonList';
 import Dialog from './Dialog';
 import { Container } from './styled';
-import { getSelectedPokemon, getSelectedPokemonAbilities } from '../utils';
 
 const Catch: React.FC = () => {
   const [randomPokemon, setRandomPokemon] = useState<Pokemon[]>([]);

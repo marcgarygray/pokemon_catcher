@@ -2,6 +2,10 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import * as localforage from 'localforage';
 import { UserNamedPokemon } from './types';
 
+enum Keys {
+  pokemon = 'pokemon',
+}
+
 export interface Context {
   addPokemon: (added: UserNamedPokemon) => Promise<void>;
   fetching: boolean;
@@ -21,7 +25,7 @@ export const PokemonProvider: React.FC = ({ children }) => {
   const addPokemon: (
     added: UserNamedPokemon,
   ) => Promise<void> = async added => {
-    await localforage.setItem('pokemon', [...pokemon, added]);
+    await localforage.setItem(Keys.pokemon, [...pokemon, added]);
     setPokemon([...pokemon, added]);
     return;
   };
@@ -30,7 +34,7 @@ export const PokemonProvider: React.FC = ({ children }) => {
     const fetchPokemon: () => Promise<void> = async () => {
       const fetchedPokemon = await localforage.getItem<
         UserNamedPokemon[] | null
-      >('pokemon');
+      >(Keys.pokemon);
       if (fetchedPokemon !== null) {
         setPokemon(fetchedPokemon);
       }

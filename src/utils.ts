@@ -13,8 +13,7 @@ export const getSelectedPokemonAbilities: (
     return '';
   } else if (selected.abilities.length === 0) {
     return 'The selected Pokémon has no abilities.';
-  }
-  {
+  } else {
     return `The selected Pokemon has the following abilities: ${selected.abilities
       .map(ability => ability.ability.name)
       .join(', ')}.`;

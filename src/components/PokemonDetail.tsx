@@ -3,10 +3,10 @@ import { Link, useParams } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Home from '@material-ui/icons/Home';
 import { usePokemon } from '../usePokemon';
-import DataTable from './DataTable';
-import { Card, Container } from './styled';
 import routes from '../routes';
 import { getPokemonByIndex } from '../utils';
+import DataTable from './DataTable';
+import { Card, Container } from './styled';
 
 const PokemonDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();

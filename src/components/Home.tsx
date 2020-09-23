@@ -3,11 +3,11 @@ import { Link as RouterLink, useHistory } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import Loading from '@material-ui/core/CircularProgress';
-import PokemonList from './PokemonList';
 import logo from '../logo.svg';
 import { usePokemon } from '../usePokemon';
 import routes from '../routes';
 import { Consumer } from '../types';
+import PokemonList from './PokemonList';
 import { Container } from './styled';
 
 export const emptyInventoryMessage = `You haven't caught any Pokémon yet.`;
