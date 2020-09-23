@@ -2,8 +2,9 @@ import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { render, RenderResult } from '@testing-library/react';
 import Home, { emptyInventoryMessage } from '../components/Home';
-import { Factory, UserNamedPokemon } from '../types';
+import { Factory } from '../types';
 import { PokemonContext } from '../usePokemon';
+import { mockedPokemon, mockPokemonSpeciesName } from '../testData';
 
 const renderWithRouter: Factory<RenderResult> = () => {
   return render(
@@ -11,27 +12,6 @@ const renderWithRouter: Factory<RenderResult> = () => {
       <Home />
     </MemoryRouter>,
   );
-};
-
-const mockPokemonSpeciesName = 'Test Species Name';
-
-const mockedPokemon: UserNamedPokemon = {
-  abilities: [],
-  base_experience: 1,
-  forms: [],
-  game_indices: [],
-  height: 1,
-  id: 1,
-  name: mockPokemonSpeciesName,
-  order: 1,
-  species: {
-    name: '',
-    url: '',
-  },
-  sprites: { front_default: '' },
-  stats: [],
-  types: [],
-  weight: 1,
 };
 
 const renderWithStoredPokemon: Factory<RenderResult> = () => {
@@ -46,7 +26,6 @@ const renderWithStoredPokemon: Factory<RenderResult> = () => {
       <MemoryRouter>
         <Home />
       </MemoryRouter>
-      ,
     </PokemonContext.Provider>,
   );
 };

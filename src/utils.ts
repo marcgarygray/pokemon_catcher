@@ -101,3 +101,10 @@ export const getTableRowsFromPokemonData: (
   }
   return rows;
 };
+
+export default {
+  getPokemonByIndex,
+  getSelectedPokemon,
+  getSelectedPokemonAbilities,
+  getTableRowsFromPokemonData,
+};
