@@ -5,10 +5,12 @@ import Link from '@material-ui/core/Link';
 import Loading from '@material-ui/core/CircularProgress';
 import PokemonList from './PokemonList';
 import logo from '../logo.svg';
-import { usePokemon } from '../pokemon/usePokemon';
+import { usePokemon } from '../usePokemon';
 import routes from '../routes';
-import { Consumer } from '../common/types';
+import { Consumer } from '../types';
 import { Container } from './styled';
+
+export const emptyInventoryMessage = `You haven't caught any Pokémon yet.`;
 
 const Home: React.FC = () => {
   const { fetching, pokemon } = usePokemon();
@@ -26,9 +28,7 @@ const Home: React.FC = () => {
       <Typography variant="h2">Gotta Catch &apos;Em All!</Typography>
       {fetching && <Loading />}
       {!fetching && pokemon.length === 0 && (
-        <Typography variant="body1">
-          You haven&apos;t caught any Pokémon yet.
-        </Typography>
+        <Typography variant="body1">{emptyInventoryMessage}</Typography>
       )}
       {!fetching && pokemon.length > 0 && (
         <>

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './index.css';
-import { PokemonProvider } from './pokemon/usePokemon';
+import { PokemonProvider } from './usePokemon';
 import Home from './components/Home';
 import PokemonDetail from './components/PokemonDetail';
 import Catch from './components/Catch';

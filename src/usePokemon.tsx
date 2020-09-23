@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import * as localforage from 'localforage';
-import { UserNamedPokemon } from '../common/types';
+import { UserNamedPokemon } from './types';
 
 export interface Context {
   addPokemon: (added: UserNamedPokemon) => Promise<void>;

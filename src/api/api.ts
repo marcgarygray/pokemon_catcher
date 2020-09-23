@@ -1,4 +1,4 @@
-import { Pokemon } from '../common/types';
+import { Pokemon } from '../types';
 
 const baseRoute = 'https://pokeapi.co/api/v2/pokemon';
 

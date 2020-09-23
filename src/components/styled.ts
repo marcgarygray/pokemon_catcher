@@ -2,9 +2,11 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import DefaultContainer from '@material-ui/core/Container';
 import DefaultList from '@material-ui/core/List';
+import DefaultCard from '@material-ui/core/Card';
 
 const logoBlue = '#1d2c5e';
 const logoYellow = '#ffcb05';
+const offsetBlue = '#3663ad';
 
 export const Container = styled(DefaultContainer)<{ hideTitle?: boolean }>`
   text-align: center;
@@ -24,11 +26,17 @@ export const Container = styled(DefaultContainer)<{ hideTitle?: boolean }>`
     font-size: 2em;
     margin-bottom: 72px;
   }
+  h3 {
+    font-size: 1.75em;
+  }
   h4 {
     text-align: left;
     width: 300px;
     margin: 0 auto;
     font-size: 1.5em;
+  }
+  h5 {
+    font-size: 1.25em;
   }
   .MuiTypography-body1 {
     margin: 0 0 24px;
@@ -68,6 +76,9 @@ export const Container = styled(DefaultContainer)<{ hideTitle?: boolean }>`
     display: block;
     margin: 24px 0;
   }
+  .MuiTable-root {
+    margin-top: 48px;
+  }
 `;
 
 export const List = styled(DefaultList)`
@@ -75,5 +86,22 @@ export const List = styled(DefaultList)`
     max-width: 300px;
     margin: 0 auto;
     margin-bottom: 24px;
+  }
+`;
+
+export const Card = styled(DefaultCard)`
+  &.MuiPaper-root.MuiCard-root {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: ${logoBlue};
+    color: ${logoYellow};
+    img {
+      background: #fff;
+      border-radius: 50%;
+      border: 2px solid ${offsetBlue};
+    }
   }
 `;

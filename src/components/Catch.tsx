@@ -3,17 +3,13 @@ import { Link, useHistory } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Loading from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
-import Dialog from '@material-ui/core/Dialog';
-import TextField from '@material-ui/core/TextField';
 import Home from '@material-ui/icons/Home';
 import { getRandomPokemon } from '../api/api';
-import { Consumer, Factory, Pokemon } from '../common/types';
+import { Consumer, Factory, Pokemon } from '../types';
 import routes from '../routes';
-import { usePokemon } from '../pokemon/usePokemon';
+import { usePokemon } from '../usePokemon';
 import PokemonList from './PokemonList';
+import Dialog from './Dialog';
 import { Container } from './styled';
 
 const Catch: React.FC = () => {
@@ -21,7 +17,6 @@ const Catch: React.FC = () => {
   const [fetching, setFetching] = useState(true);
   const [selected, setSelected] = useState<number | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [userNameInput, setUserNameInput] = useState('');
 
   const { addPokemon } = usePokemon();
 
@@ -59,75 +54,46 @@ const Catch: React.FC = () => {
     selected ? randomPokemon[selected] : null;
 
   return (
-    <Container>
-      <Link className="home-link" to={routes.root}>
-        <Home color="inherit" />
-      </Link>
-      <Typography variant="h1">Catch a Pokémon!</Typography>
-      {fetching && <Loading />}
-      {!fetching && randomPokemon.length === 0 && (
-        <Typography variant="body1">
-          No Pokémon currently available to catch
-        </Typography>
-      )}
-      {!fetching && randomPokemon.length > 0 && (
-        <>
-          <PokemonList
-            catchPage
-            pokemon={randomPokemon.map((mon, i) => ({
-              ...mon,
-              itemClickHandler: () => handlePokemonClick(i),
-              selected: selected === i,
-            }))}
-          />
-          <Button
-            disabled={selected === null}
-            disableElevation
-            onClick={() => setDialogOpen(true)}
-            variant="contained"
-            color="inherit"
-          >
-            Catch Selected Pokémon
-          </Button>
-        </>
-      )}
-      <Dialog disableBackdropClick open={dialogOpen}>
-        <DialogTitle>Optional: Name Your Pokémon</DialogTitle>
-        <DialogContent>
-          <Typography variant="body2">
-            Name your {getSelectedPokemon()?.name} (type{' '}
-            {getSelectedPokemon()
-              ?.types.map(type => type.type.name)
-              .join(', ')}
-            ):
-            <TextField
-              onChange={e => setUserNameInput(e.target.value)}
-              placeholder="Enter name here"
-              style={{ display: 'block', margin: '24px 0' }}
-              value={userNameInput}
-            />
+    <>
+      <Container>
+        <Link className="home-link" to={routes.root}>
+          <Home color="inherit" />
+        </Link>
+        <Typography variant="h1">Catch a Pokémon!</Typography>
+        {fetching && <Loading />}
+        {!fetching && randomPokemon.length === 0 && (
+          <Typography variant="body1">
+            No Pokémon currently available to catch
           </Typography>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            color="inherit"
-            disableElevation
-            onClick={() => handleUserConfirmation('')}
-            variant="contained"
-          >
-            Skip
-          </Button>
-          <Button
-            color="inherit"
-            disableElevation
-            onClick={() => handleUserConfirmation(userNameInput)}
-            variant="contained"
-          >
-            Confirm
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </Container>
+        )}
+        {!fetching && randomPokemon.length > 0 && (
+          <>
+            <PokemonList
+              catchPage
+              pokemon={randomPokemon.map((mon, i) => ({
+                ...mon,
+                itemClickHandler: () => handlePokemonClick(i),
+                selected: selected === i,
+              }))}
+            />
+            <Button
+              color="inherit"
+              disabled={selected === null}
+              disableElevation
+              onClick={() => setDialogOpen(true)}
+              variant="contained"
+            >
+              Catch Selected Pokémon
+            </Button>
+          </>
+        )}
+      </Container>
+      <Dialog
+        onButtonClick={handleUserConfirmation}
+        open={dialogOpen}
+        selectedPokemon={getSelectedPokemon()}
+      />
+    </>
   );
 };
 

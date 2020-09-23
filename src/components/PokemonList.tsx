@@ -5,7 +5,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Check from '@material-ui/icons/Check';
-import { Pokemon } from '../common/types';
+import { Pokemon } from '../types';
 import { List } from './styled';
 
 interface PokemonListItem extends Pokemon {
