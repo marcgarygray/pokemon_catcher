@@ -1,6 +1,27 @@
-import { UserNamedPokemon } from './types';
+import { Pokemon, UserNamedPokemon } from './types';
 
 export const getSelectedPokemon: (
+  selected: number | null,
+  randomPokemon: Pokemon[],
+) => Pokemon | null = (selected, randomPokemon) =>
+  selected !== null ? randomPokemon[selected] : null;
+
+export const getSelectedPokemonAbilities: (
+  selected: Pokemon | null,
+) => string = selected => {
+  if (selected === null) {
+    return '';
+  } else if (selected.abilities.length === 0) {
+    return 'The selected Pokémon has no abilities.';
+  }
+  {
+    return `The selected Pokemon has the following abilities: ${selected.abilities
+      .map(ability => ability.ability.name)
+      .join(', ')}.`;
+  }
+};
+
+export const getPokemonByIndex: (
   id: string,
   pokemon: UserNamedPokemon[],
 ) => UserNamedPokemon | null = (id, pokemon) => {

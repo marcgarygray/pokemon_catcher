@@ -5,12 +5,13 @@ import Loading from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import Home from '@material-ui/icons/Home';
 import { getRandomPokemon } from '../api/api';
-import { Consumer, Factory, Pokemon } from '../types';
+import { Consumer, Pokemon } from '../types';
 import routes from '../routes';
 import { usePokemon } from '../usePokemon';
 import PokemonList from './PokemonList';
 import Dialog from './Dialog';
 import { Container } from './styled';
+import { getSelectedPokemon, getSelectedPokemonAbilities } from '../utils';
 
 const Catch: React.FC = () => {
   const [randomPokemon, setRandomPokemon] = useState<Pokemon[]>([]);
@@ -50,9 +51,6 @@ const Catch: React.FC = () => {
     }
   };
 
-  const getSelectedPokemon: Factory<Pokemon | null> = () =>
-    selected ? randomPokemon[selected] : null;
-
   return (
     <>
       <Container>
@@ -85,13 +83,20 @@ const Catch: React.FC = () => {
             >
               Catch Selected Pokémon
             </Button>
+            {selected !== null && (
+              <Typography variant="body1">
+                {getSelectedPokemonAbilities(
+                  getSelectedPokemon(selected, randomPokemon),
+                )}
+              </Typography>
+            )}
           </>
         )}
       </Container>
       <Dialog
         onButtonClick={handleUserConfirmation}
         open={dialogOpen}
-        selectedPokemon={getSelectedPokemon()}
+        selectedPokemon={getSelectedPokemon(selected, randomPokemon)}
       />
     </>
   );

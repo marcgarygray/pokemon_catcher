@@ -29,6 +29,7 @@ const mockedPokemon: UserNamedPokemon = {
     url: '',
   },
   sprites: { front_default: '' },
+  stats: [],
   types: [],
   weight: 1,
 };

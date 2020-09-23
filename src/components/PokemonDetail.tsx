@@ -6,13 +6,13 @@ import { usePokemon } from '../usePokemon';
 import DataTable from './DataTable';
 import { Card, Container } from './styled';
 import routes from '../routes';
-import { getSelectedPokemon } from '../utils';
+import { getPokemonByIndex } from '../utils';
 
 const PokemonDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { pokemon } = usePokemon();
 
-  const selectedPokemon = getSelectedPokemon(id, pokemon);
+  const selectedPokemon = getPokemonByIndex(id, pokemon);
 
   return (
     <Container>
