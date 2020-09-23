@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Loading from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
+import Dialog from '@material-ui/core/Dialog';
+import TextField from '@material-ui/core/TextField';
+import Home from '@material-ui/icons/Home';
 import { getRandomPokemon } from '../api/api';
-import { Consumer, Pokemon } from '../common/types';
+import { Consumer, Factory, Pokemon } from '../common/types';
 import routes from '../routes';
 import { usePokemon } from '../pokemon/usePokemon';
 import PokemonList from './PokemonList';
@@ -14,6 +20,8 @@ const Catch: React.FC = () => {
   const [randomPokemon, setRandomPokemon] = useState<Pokemon[]>([]);
   const [fetching, setFetching] = useState(true);
   const [selected, setSelected] = useState<number | null>(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [userNameInput, setUserNameInput] = useState('');
 
   const { addPokemon } = usePokemon();
 
@@ -25,6 +33,7 @@ const Catch: React.FC = () => {
       setRandomPokemon(fetched);
       setFetching(false);
     };
+
     fetchRandomPokemon();
   }, []);
 
@@ -36,18 +45,24 @@ const Catch: React.FC = () => {
     }
   };
 
-  const handleCatchClick = async () => {
+  const handleUserConfirmation: Consumer<string> = async (name: string) => {
     if (selected !== null) {
       await addPokemon({
         ...randomPokemon[selected],
-        user_provided_name: 'custom name!',
+        user_provided_name: name,
       });
       history.push(routes.root);
     }
   };
 
+  const getSelectedPokemon: Factory<Pokemon | null> = () =>
+    selected ? randomPokemon[selected] : null;
+
   return (
     <Container>
+      <Link className="home-link" to={routes.root}>
+        <Home color="inherit" />
+      </Link>
       <Typography variant="h1">Catch a Pokémon!</Typography>
       {fetching && <Loading />}
       {!fetching && randomPokemon.length === 0 && (
@@ -65,11 +80,53 @@ const Catch: React.FC = () => {
               selected: selected === i,
             }))}
           />
-          <Button disabled={selected === null} onClick={handleCatchClick}>
+          <Button
+            disabled={selected === null}
+            disableElevation
+            onClick={() => setDialogOpen(true)}
+            variant="contained"
+            color="inherit"
+          >
             Catch Selected Pokémon
           </Button>
         </>
       )}
+      <Dialog disableBackdropClick open={dialogOpen}>
+        <DialogTitle>Optional: Name Your Pokémon</DialogTitle>
+        <DialogContent>
+          <Typography variant="body2">
+            Name your {getSelectedPokemon()?.name} (type{' '}
+            {getSelectedPokemon()
+              ?.types.map(type => type.type.name)
+              .join(', ')}
+            ):
+            <TextField
+              onChange={e => setUserNameInput(e.target.value)}
+              placeholder="Enter name here"
+              style={{ display: 'block', margin: '24px 0' }}
+              value={userNameInput}
+            />
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            color="inherit"
+            disableElevation
+            onClick={() => handleUserConfirmation('')}
+            variant="contained"
+          >
+            Skip
+          </Button>
+          <Button
+            color="inherit"
+            disableElevation
+            onClick={() => handleUserConfirmation(userNameInput)}
+            variant="contained"
+          >
+            Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Container>
   );
 };

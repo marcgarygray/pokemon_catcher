@@ -42,5 +42,5 @@ export interface Pokemon {
 }
 
 export interface UserNamedPokemon extends Pokemon {
-  user_provided_name: string;
+  user_provided_name?: string;
 }

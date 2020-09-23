@@ -3,10 +3,14 @@ import { css } from '@emotion/core';
 import DefaultContainer from '@material-ui/core/Container';
 import DefaultList from '@material-ui/core/List';
 
+const logoBlue = '#1d2c5e';
+const logoYellow = '#ffcb05';
+
 export const Container = styled(DefaultContainer)<{ hideTitle?: boolean }>`
   text-align: center;
-  padding-top: 48px;
-  color: #1d2c5e;
+  padding: 48px;
+  color: ${logoBlue};
+  position: relative;
   h1 {
     font-size: 3em;
     margin-bottom: 24px;
@@ -30,7 +34,7 @@ export const Container = styled(DefaultContainer)<{ hideTitle?: boolean }>`
     margin: 0 0 24px;
   }
   a.MuiTypography-root {
-    background: #ffcb05;
+    background: ${logoYellow};
     display: inline-block;
     border-radius: 4px;
     padding: 12px 24px;
@@ -38,9 +42,31 @@ export const Container = styled(DefaultContainer)<{ hideTitle?: boolean }>`
     text-transform: uppercase;
     font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
     &:hover {
-      background: #1d2c53;
-      color: #ffcb05;
+      background: ${logoBlue};
+      color: ${logoYellow};
     }
+  }
+  a.home-link {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    color: ${logoBlue};
+    transition: all 0.2s ease-in-out;
+    &:hover {
+      color: ${logoYellow};
+    }
+  }
+  button.MuiButton-contained {
+    background: ${logoYellow};
+    transition: all 0.2s ease-in-out;
+    &:hover {
+      background: ${logoBlue};
+      color: ${logoYellow};
+    }
+  }
+  .MuiFormControl-root {
+    display: block;
+    margin: 24px 0;
   }
 `;
 

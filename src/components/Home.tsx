@@ -16,7 +16,7 @@ const Home: React.FC = () => {
   const history = useHistory();
 
   const handleItemClick: Consumer<number> = i => {
-    history.push(routes.pokemon_detail.replace(':id', `${i}`));
+    history.push(routes.pokemon_detail.replace(/:id/, `${i}`));
   };
 
   return (
@@ -42,7 +42,7 @@ const Home: React.FC = () => {
         </>
       )}
       <Link to={routes.catch} component={RouterLink} underline="none">
-        Catch Pokemon
+        Catch Pokémon
       </Link>
     </Container>
   );
