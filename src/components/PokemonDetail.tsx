@@ -25,8 +25,6 @@ const PokemonDetail: React.FC = () => {
 
   const selectedPokemon = getSelectedPokemon(id, pokemon);
 
-  console.log(selectedPokemon);
-
   return (
     <Container>
       <Link className="home-link" to={routes.root}>
