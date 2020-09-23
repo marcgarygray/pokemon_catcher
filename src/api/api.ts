@@ -43,7 +43,7 @@ export const getRandomPokemon: (
     const randomPokemonURLs: string[] = Array(num)
       .fill(null)
       .map(() => {
-        const random = Math.floor(Math.random() * total) + 1;
+        const random = Math.floor(Math.random() * total);
         return everyPokemonResponseJSON.results[random].url;
       });
     const randomPokemon = await Promise.all(
