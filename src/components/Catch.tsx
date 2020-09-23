@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Loading from '@material-ui/core/CircularProgress';
-import Checkmark from '@material-ui/icons/Check';
+import Typography from '@material-ui/core/Typography';
 import { getRandomPokemon } from '../api/api';
 import { Consumer, Pokemon } from '../common/types';
 import routes from '../routes';
 import { usePokemon } from '../pokemon/usePokemon';
+import PokemonList from './PokemonList';
+import { Container } from './styled';
 
 const Catch: React.FC = () => {
   const [randomPokemon, setRandomPokemon] = useState<Pokemon[]>([]);
@@ -45,28 +47,30 @@ const Catch: React.FC = () => {
   };
 
   return (
-    <>
+    <Container>
+      <Typography variant="h1">Catch a Pokémon!</Typography>
       {fetching && <Loading />}
       {!fetching && randomPokemon.length === 0 && (
-        <p>No Pokémon currently available to catch</p>
+        <Typography variant="body1">
+          No Pokémon currently available to catch
+        </Typography>
       )}
       {!fetching && randomPokemon.length > 0 && (
         <>
-          <ul>
-            {randomPokemon.map((mon, i) => (
-              <li key={`mon_${i}`}>
-                <button onClick={() => handlePokemonClick(i)}>
-                  {mon.name} {i === selected && <Checkmark />}
-                </button>
-              </li>
-            ))}
-          </ul>
+          <PokemonList
+            catchPage
+            pokemon={randomPokemon.map((mon, i) => ({
+              ...mon,
+              itemClickHandler: () => handlePokemonClick(i),
+              selected: selected === i,
+            }))}
+          />
           <Button disabled={selected === null} onClick={handleCatchClick}>
             Catch Selected Pokémon
           </Button>
         </>
       )}
-    </>
+    </Container>
   );
 };
 
