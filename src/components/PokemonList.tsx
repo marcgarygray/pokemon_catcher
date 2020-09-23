@@ -22,13 +22,8 @@ interface Props {
 const PokemonList: React.FC<Props> = ({ catchPage, pokemon }) => (
   <List dense>
     {pokemon.map((mon, i) => (
-      <>
-        <ListItem
-          button
-          key={`mon_${i}`}
-          onClick={mon.itemClickHandler}
-          selected={mon.selected}
-        >
+      <React.Fragment key={`mon_${i}`}>
+        <ListItem button onClick={mon.itemClickHandler} selected={mon.selected}>
           <ListItemAvatar>
             <Avatar alt={mon.name} src={mon.sprites.front_default} />
           </ListItemAvatar>
@@ -45,7 +40,7 @@ const PokemonList: React.FC<Props> = ({ catchPage, pokemon }) => (
           {mon.selected && <Check />}
         </ListItem>
         {i + 1 < pokemon.length && <Divider />}
-      </>
+      </React.Fragment>
     ))}
   </List>
 );
