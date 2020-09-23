@@ -5,21 +5,22 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { UserNamedPokemon } from '../types';
+import { getTableRowsFromPokemonData } from '../utils';
 
 interface Props {
   pokemon: UserNamedPokemon;
 }
-const DataTable: React.FC<Props> = ({ pokemon }) => {
-  return (
-    <Table component={Paper}>
-      <TableBody>
-        <TableRow>
-          <TableCell size="small">ID:</TableCell>
-          <TableCell>{pokemon.id}</TableCell>
+const DataTable: React.FC<Props> = ({ pokemon }) => (
+  <Table size="small" component={Paper}>
+    <TableBody>
+      {getTableRowsFromPokemonData(pokemon).map(row => (
+        <TableRow key={row.label}>
+          <TableCell>{row.label}</TableCell>
+          <TableCell>{row.value}</TableCell>
         </TableRow>
-      </TableBody>
-    </Table>
-  );
-};
+      ))}
+    </TableBody>
+  </Table>
+);
 
 export default DataTable;

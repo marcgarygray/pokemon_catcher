@@ -18,6 +18,11 @@ interface GameIndex {
   version: Resource;
 }
 
+interface Stat {
+  base_stat: number;
+  stat: Resource;
+}
+
 interface Type {
   slot: number;
   type: Resource;
@@ -37,6 +42,7 @@ export interface Pokemon {
   sprites: {
     front_default: string;
   };
+  stats: Stat[];
   types: Type[];
   weight: number;
 }
