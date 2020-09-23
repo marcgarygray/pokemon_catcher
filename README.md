@@ -1,5 +1,9 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+You'll likely just need to run `yarn && yarn start` to get up and running. However, if you'd like to know all of the available commands, reference the below content.
+
+## CRA Generated README Content
+
 ## Available Scripts
 
 In the project directory, you can run:
