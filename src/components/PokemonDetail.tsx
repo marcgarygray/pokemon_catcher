@@ -2,22 +2,11 @@ import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Home from '@material-ui/icons/Home';
-import { UserNamedPokemon } from '../types';
 import { usePokemon } from '../usePokemon';
 import DataTable from './DataTable';
 import { Card, Container } from './styled';
 import routes from '../routes';
-
-const getSelectedPokemon: (
-  id: string,
-  pokemon: UserNamedPokemon[],
-) => UserNamedPokemon | null = (id, pokemon) => {
-  const index = parseInt(id);
-  if (!isNaN(index) && pokemon.length > index) {
-    return pokemon[index];
-  }
-  return null;
-};
+import { getSelectedPokemon } from '../utils';
 
 const PokemonDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
